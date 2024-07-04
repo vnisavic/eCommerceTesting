@@ -33,6 +33,13 @@ class LoginPage {
         await this.loginBtn.click()
 
     }
+
+    async goToResetPassPage(){
+
+        await this.page.goto('https://rahulshettyacademy.com/client/')
+        await this.forgotPassLink.click()
+        
+    }
 }
 
 module.exports = {LoginPage}
