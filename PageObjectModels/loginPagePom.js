@@ -13,6 +13,10 @@ class LoginPage {
         this.shoppingTitle = page.locator('h3')
         this.practiceTitle = page.locator("div[class='banner'] h1[class='title']")
         this.loginTitle = page.locator('.login-title')
+        this.incorrectMailOrPassAlert = page.locator("div[aria-label='Incorrect email or password.']")
+        this.invalidMailAlert = page.locator("div[class='invalid-feedback'] div")
+        this.emailRequiredAlert = page.locator("div[class='form-group'] div[class='invalid-feedback'] div")
+        this.passwordRequiredAlert = page.locator("div[class='form-group mb-4'] div[class='invalid-feedback'] div")
 
     }
 
@@ -27,7 +31,7 @@ class LoginPage {
         await this.emailInput.fill(email)
         await this.passwordInput.fill(password)
         await this.loginBtn.click()
-        
+
     }
 }
 
