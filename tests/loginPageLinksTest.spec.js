@@ -40,7 +40,7 @@ test.describe('Testing if login page links redirect to the correct page', ()=>{
 
         await loginPage.registerLink.click()
         await expect(page.url()).toBe(urls.registerPageUrl)
-        
+
     })
 
 
