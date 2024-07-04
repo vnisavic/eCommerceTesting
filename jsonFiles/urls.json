@@ -1,5 +1,7 @@
 {
 
-    "homePageUrl":"https://rahulshettyacademy.com/client/dashboard/dash"
-    
+    "homePageUrl":"https://rahulshettyacademy.com/client/dashboard/dash",
+    "registerPageUrl":"https://rahulshettyacademy.com/client/auth/register",
+    "resetPassPageUrl":"https://rahulshettyacademy.com/client/auth/password-new"
+
 }

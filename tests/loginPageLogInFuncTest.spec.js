@@ -80,6 +80,7 @@ test.describe('Testing log in functionality', ()=>{
         await loginPage.logIn('', '')
         await expect(loginPage.emailRequiredAlert).toHaveText(alerts.emailRequired)
         await expect(loginPage.passwordRequiredAlert).toHaveText(alerts.passwordRequired)
-        
+
     })
+    
 })
