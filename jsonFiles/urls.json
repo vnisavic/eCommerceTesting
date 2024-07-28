@@ -2,6 +2,7 @@
 
     "homePageUrl":"https://rahulshettyacademy.com/client/dashboard/dash",
     "registerPageUrl":"https://rahulshettyacademy.com/client/auth/register",
-    "resetPassPageUrl":"https://rahulshettyacademy.com/client/auth/password-new"
+    "resetPassPageUrl":"https://rahulshettyacademy.com/client/auth/password-new",
+    "loginPageUrl":"https://rahulshettyacademy.com/client/auth/login"
 
 }
