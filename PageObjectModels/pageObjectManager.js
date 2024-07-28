@@ -1,5 +1,6 @@
 const {LoginPage} = require('./loginPagePom')
 const {ResetPassPage} = require('./resetPassPage')
+const {RegisterPage} = require('./registerPagePom')
 
 class PageObjectManager{
 
@@ -7,6 +8,7 @@ class PageObjectManager{
 
         this.loginPage = new LoginPage(page)
         this.resetPassPage = new ResetPassPage(page)
+        this.registerPage = new RegisterPage(page)
 
     }
 
@@ -19,6 +21,11 @@ class PageObjectManager{
 
         return this.resetPassPage
         
+    }
+
+    getRegisterPage(){
+
+        return this.registerPage
     }
 }
 
