@@ -1,3 +1,5 @@
+const { expect } = require("@playwright/test")
+
 class RegisterPage {
 
     constructor(page){
@@ -18,7 +20,9 @@ class RegisterPage {
         this.loginHereLink = page.locator('.login-wrapper-footer-text')
         this.requiredInputMessages = page.locator('.ng-star-inserted')
         this.regPageLoginBtn = page.locator('.btn.btn-primary')
-
+        this.invalidEmailWarning = page.locator("body > app-root:nth-child(1) > app-register:nth-child(2) > div:nth-child(2) > section:nth-child(2) > div:nth-child(1) > div:nth-child(2) > form:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1)")
+        this.onlyNumbersWarning = page.locator("//div[normalize-space()='*only numbers is allowed']")
+        this.numberLenghtWarning = page.locator("//div[normalize-space()='*Phone Number must be 10 digit']")
     }
 
     async goToRegisterPage(){
@@ -82,7 +86,32 @@ class RegisterPage {
         return areWarningsVisible
     }
 
-    
+    async checkIfEmailIsValid(){
+
+        await this.emailInput.fill('asdf')
+        await this.registerBtn.click()
+        let emailFormatWarningText = await this.invalidEmailWarning.textContent()
+        await expect(emailFormatWarningText).toBe('*Enter Valid Email')
+
+    }
+
+    async checkNumberFormatAndLength(){
+
+        await this.phoneInput.fill('asdf')
+        await this.registerBtn.click()
+        let numberLenghtWarnignText = await this.numberLenghtWarning.textContent()
+        let numberFormatWarningText = await this.onlyNumbersWarning.textContent()
+
+        let warningsVisible = false
+
+        if(await numberFormatWarningText.includes('only numbers') && await numberLenghtWarnignText.includes('must be 10 digit')){
+
+            warningsVisible = true
+        }
+
+        await expect(warningsVisible).toBeTruthy()
+
+    }
 }
 
 module.exports = {RegisterPage}

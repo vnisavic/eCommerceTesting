@@ -30,8 +30,27 @@ test.describe('Testing register page functionality', ()=>{
 
         const poManager = new PageObjectManager(page)
         const registerPage = poManager.getRegisterPage()
-        let checkWarnings = await registerPage.checkEmptyInputWarnigns()
-        await expect(checkWarnings).toBeTruthy()
+
+        let areWarningsVisible = await registerPage.checkEmptyInputWarnigns()
+        await expect(areWarningsVisible).toBeTruthy()
+
+    })
+
+    test('Check if there is an error message if the email format is invalid', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const registerPage = poManager.getRegisterPage()
+
+        await registerPage.checkIfEmailIsValid()
+
+    })
+
+    test('Check if there is an error message if the phone number format and length are invalid', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const registerPage = poManager.getRegisterPage()
+
+        await registerPage.checkNumberFormatAndLength()
 
     })
 
