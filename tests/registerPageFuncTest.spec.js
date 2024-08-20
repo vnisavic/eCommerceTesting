@@ -54,5 +54,13 @@ test.describe('Testing register page functionality', ()=>{
 
     })
 
-    
+    test('Check if there is an error message if pass and confirm pass dont match',async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const registerPage = poManager.getRegisterPage()
+
+        await registerPage.checkIfPasswordsMatch()
+
+    })
+
 })

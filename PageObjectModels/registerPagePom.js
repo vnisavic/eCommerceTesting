@@ -23,6 +23,7 @@ class RegisterPage {
         this.invalidEmailWarning = page.locator("body > app-root:nth-child(1) > app-register:nth-child(2) > div:nth-child(2) > section:nth-child(2) > div:nth-child(1) > div:nth-child(2) > form:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1)")
         this.onlyNumbersWarning = page.locator("//div[normalize-space()='*only numbers is allowed']")
         this.numberLenghtWarning = page.locator("//div[normalize-space()='*Phone Number must be 10 digit']")
+        this.passwordsDontMatchWarn = page.locator("//div[contains(text(),'Password and Confirm Password must match with each')]")
     }
 
     async goToRegisterPage(){
@@ -111,6 +112,16 @@ class RegisterPage {
 
         await expect(warningsVisible).toBeTruthy()
 
+    }
+
+    async checkIfPasswordsMatch(){
+
+        await this.passwordInput.fill('randompass123')
+        await this.confirmPassInput.fill('randompass1235')
+        await this.registerBtn.click()
+
+        let passDontMatchText = await this.passwordsDontMatchWarn.textContent()
+        await expect(this.passwordsDontMatchWarn).toHaveText(passDontMatchText)
     }
 }
 
