@@ -1,28 +1,20 @@
 const {test, expect, request} = require ('@playwright/test')
-const userDataPayload = {userEmail:"nekimail@gmail.com", userPassword:"Karamela1234&"}
-let loginToken
+const {PageObjectManager} = require ('../PageObjectModels/pageObjectManager')
 
-    test.beforeAll('Login using API since login fucntionality has been already tested', async()=>{
+    test.beforeAll('Login using API since login fucntionality has been already tested', async({browser})=>{
 
-        const apiContext = await request.newContext()
-        const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",{data:userDataPayload})
-        await expect(loginResponse.ok()).toBeTruthy()
-        const loginResponseBody = await loginResponse.json()
-        loginToken = loginResponseBody.token
+        const context = await browser.newContext()
+        const page = await context.newPage()
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+        await homePage.getLoginToken()
 
     })
 
     test('Login', async({page})=>{
 
-       await page.addInitScript(value => {
-
-            window.localStorage.setItem('token',value)
-
-        }, loginToken)
-
-    
-        await page.goto('https://rahulshettyacademy.com/client')
-        await expect(page.url()).toBe('https://rahulshettyacademy.com/client/dashboard/dash')
+           const poManager = new PageObjectManager(page)
+           const homePage = await poManager.getHomePage()
+           await homePage.loginWithApi()
         
-
     })
