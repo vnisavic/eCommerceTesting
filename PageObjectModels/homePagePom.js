@@ -7,21 +7,22 @@ class HomePage{
     constructor(page){
 
         this.page = page
-        
-    }
-
-    async getLoginToken(){
-
-        const apiContext = await request.newContext()
-        const loginResponse = await apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', {data:userDataPayload})
-        const responseBody = await loginResponse.json()
-        loginToken = responseBody.token
-
+        this.fashionFilterCheckbox = page.locator("//section[@id='sidebar']//div[3]//div[2]//input[1]")
+        this.electronicsFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(3) > div:nth-child(4) > input:nth-child(1)")
+        this.householdFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(3) > div:nth-child(5) > input:nth-child(1)")
+        this.zaraCoatNameTag = page.locator("//b[normalize-space()='ZARA COAT 3']")
+        this.iPhoneNameTag = page.locator("//b[normalize-space()='IPHONE 13 PRO']")
+        this.adidasShoes = page.locator("//b[normalize-space()='ADIDAS ORIGINAL']")
     }
 
     async loginWithApi(){
 
-        await this.page.addInitScript(value => {
+        const apiContext = await request.newContext()
+        const loginResponse = await apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', {data:userDataPayload})
+        const responseBody = await loginResponse.json()
+        loginToken = responseBody.token //getting login token
+
+        await this.page.addInitScript(value => {  //injecting login token into localstorage
 
             window.localStorage.setItem('token', value)
         }, loginToken)
@@ -30,5 +31,34 @@ class HomePage{
         await expect(this.page.url()).toBe('https://rahulshettyacademy.com/client/dashboard/dash')
 
     }
+
+    async checkFilters(filterName){
+
+        if(filterName == 'fashion'){
+
+            await this.fashionFilterCheckbox.click()
+            await expect(this.zaraCoatNameTag).toBeVisible()
+            await expect(this.adidasShoes).not.toBeVisible()
+            await expect(this.iPhoneNameTag).not.toBeVisible()
+
+        }
+        else if(filterName == 'electronics'){
+
+            await this.electronicsFilterCheckbox.click()
+            await expect(this.iPhoneNameTag).toBeVisible()
+            await expect(this.zaraCoatNameTag).not.toBeVisible()
+            await expect(this.adidasShoes).not.toBeVisible()
+
+        }
+        else if(filterName == 'household'){
+
+            await this.householdFilterCheckbox.click()
+            await expect(this.adidasShoes).toBeVisible()
+            await expect(this.iPhoneNameTag).not.toBeVisible()
+            await expect(this.zaraCoatNameTag).not.toBeVisible()
+
+        }
+    }
+   
 }
 module.exports = {HomePage}

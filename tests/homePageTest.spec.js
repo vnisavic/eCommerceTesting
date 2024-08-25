@@ -1,20 +1,38 @@
-const {test, expect, request} = require ('@playwright/test')
+const {test, expect} = require ('@playwright/test')
 const {PageObjectManager} = require ('../PageObjectModels/pageObjectManager')
 
-    test.beforeAll('Login using API since login fucntionality has been already tested', async({browser})=>{
+test.describe('Testing home page functionalities', ()=>{
 
-        const context = await browser.newContext()
-        const page = await context.newPage()
+    test.beforeEach('Login using API since login fucntionality has been already tested', async({page})=>{
+
         const poManager = new PageObjectManager(page)
         const homePage = await poManager.getHomePage()
-        await homePage.getLoginToken()
+        await homePage.loginWithApi()
 
     })
 
-    test('Login', async({page})=>{
+    test('Check if "fashion" sidebar filtering functionality is working', async({page})=>{
 
-           const poManager = new PageObjectManager(page)
-           const homePage = await poManager.getHomePage()
-           await homePage.loginWithApi()
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+        await homePage.checkFilters('fashion')
         
     })
+
+    test('Check if "electronics" sidebar filtering functionality is working', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+        await homePage.checkFilters('electronics')
+        
+    })
+
+    test('Check if "household" sidebar filtering functionality is working', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+        await homePage.checkFilters('household')
+        
+    })
+    
+})
