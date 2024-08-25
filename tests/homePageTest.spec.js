@@ -75,4 +75,12 @@ test.describe('Testing home page filtering functionalities', ()=>{
         
     })
 
+    test.only('Check if filter search bar is displaying searched items', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+        await homePage.checkSearchbar()
+
+    })
+
 })

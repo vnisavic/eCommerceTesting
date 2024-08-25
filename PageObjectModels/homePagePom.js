@@ -18,6 +18,7 @@ class HomePage{
         this.mobilesFilterCheckbox = page.locator("section[id='sidebar'] div:nth-child(4) div:nth-child(3) input:nth-child(1)")
         this.menFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(5) > div:nth-child(3) > input:nth-child(1)")
         this.womenFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(5) > div:nth-child(4) > input:nth-child(1)")
+        this.filterSearchInput = page.locator("div[class='py-2 border-bottom ml-3'] input[placeholder='search']")
         this.signOutBtn = page.locator("//button[normalize-space()='Sign Out']")
     }
 
@@ -43,7 +44,6 @@ class HomePage{
         if(filterName == 'fashion'){
 
             await this.fashionFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.zaraCoatNameTag).toBeVisible()
             await expect(this.adidasShoes).not.toBeVisible()
             await expect(this.iPhoneNameTag).not.toBeVisible()
@@ -52,7 +52,6 @@ class HomePage{
         else if(filterName == 'electronics'){
 
             await this.electronicsFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.iPhoneNameTag).toBeVisible()
             await expect(this.zaraCoatNameTag).not.toBeVisible()
             await expect(this.adidasShoes).not.toBeVisible()
@@ -61,7 +60,6 @@ class HomePage{
         else if(filterName == 'household'){
 
             await this.householdFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.adidasShoes).toBeVisible()
             await expect(this.iPhoneNameTag).not.toBeVisible()
             await expect(this.zaraCoatNameTag).not.toBeVisible()
@@ -70,7 +68,6 @@ class HomePage{
         else if(filterName == 'shirts'){
 
             await this.shirtsFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.zaraCoatNameTag).toBeVisible()
             await expect(this.adidasShoes).not.toBeVisible()
             await expect(this.iPhoneNameTag).not.toBeVisible()
@@ -79,7 +76,6 @@ class HomePage{
         else if(filterName == 'shoes'){
 
             await this.shoesFilterCheckBox.click()
-            await this.page.waitForTimeout(2000)
             await expect(this.adidasShoes).toBeVisible()
             await expect(this.iPhoneNameTag).not.toBeVisible()
             await expect(this.zaraCoatNameTag).not.toBeVisible()
@@ -88,7 +84,6 @@ class HomePage{
         else if(filterName == 'mobiles'){
 
             await this.electronicsFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.iPhoneNameTag).toBeVisible()
             await expect(this.zaraCoatNameTag).not.toBeVisible()
             await expect(this.adidasShoes).not.toBeVisible()
@@ -97,7 +92,6 @@ class HomePage{
         else if(filterName == 'men'){
 
             await this.menFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.iPhoneNameTag).toBeVisible()
             await expect(this.adidasShoes).toBeVisible()
             await expect(this.zaraCoatNameTag).not.toBeVisible()
@@ -106,7 +100,6 @@ class HomePage{
         else if(filterName == 'women'){
 
             await this.womenFilterCheckbox.click()
-            await this.page.waitForTimeout(1000)
             await expect(this.iPhoneNameTag).not.toBeVisible()
             await expect(this.adidasShoes).not.toBeVisible()
             await expect(this.zaraCoatNameTag).toBeVisible()
@@ -118,7 +111,22 @@ class HomePage{
     async signOut(){
 
         await this.signOutBtn.click()
-        
+
+    }
+
+    async checkSearchbar(){
+
+        let itemNameSearch = ["ZARA", "ADIDAS", "IPHONE"]
+        let itemCardNames = [this.zaraCoatNameTag, this.adidasShoes, this.iPhoneNameTag]
+
+        for(let i=0; i<=2; i++){
+
+            await this.filterSearchInput.fill(itemNameSearch[i])
+            await this.filterSearchInput.press('Enter')
+            await expect(itemCardNames[i]).toBeVisible()
+            await this.filterSearchInput.fill('')
+
+        }
     }
    
 }
