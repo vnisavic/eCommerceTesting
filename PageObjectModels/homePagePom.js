@@ -28,6 +28,12 @@ class HomePage{
         this.zaraCoatViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
         this.adidasShoesViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
         this.iPhoneViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
+        this.coatAddToCartBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > button:nth-child(4)")
+        this.shoesAddToCartBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(4)")
+        this.phoneAddToCartBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > button:nth-child(4)")
+        this.ordersBtn = page.locator(".btn.btn-custom[routerlink='/dashboard/myorders']")
+        this.myCartBtn = page.locator(".btn.btn-custom[routerlink='/dashboard/cart']")
+        this.cartNumber = page.locator("button[class='btn btn-custom'] label")
     }
 
     async loginWithApi(){
@@ -119,6 +125,8 @@ class HomePage{
     async signOut(){
 
         await this.signOutBtn.click()
+        await this.page.waitForTimeout(1000)
+        await expect(this.page.url()).toBe(url.loginPageUrl)
 
     }
 
@@ -189,6 +197,44 @@ class HomePage{
 
 
     }
+
+    async checkAddToCartBtns(){
+       
+        let cartBtns = [this.coatAddToCartBtn, this.shoesAddToCartBtn, this.phoneAddToCartBtn]
+
+        for(let i=0; i<await cartBtns.length; i++){
+
+            await cartBtns[i].click()
+            await this.page.waitForTimeout(500)
+
+        }
+        
+        let cartNumberCount = await this.cartNumber.textContent()
+        await expect(cartNumberCount).toBe('3')
+
+    }
+
+    async checkOrdersAndCartBtn(btn){
+
+        switch(btn){
+
+            case 'Orders':
+                await this.ordersBtn.click()
+                await expect(this.page.url()).toBe(url.ordersPageUrl)
+                break
+
+            case 'Cart':
+                await this.myCartBtn.click()
+                await expect(this.page.url()).toBe(url.cartPageUrl)    
+                break
+
+            default:
+                console.log('Unknown button')  
+
+        }
+        
+    }
+
 
 
 }

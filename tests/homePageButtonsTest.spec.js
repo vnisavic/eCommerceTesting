@@ -20,4 +20,39 @@ test.describe('Verifying that the buttons on the home page redirect correctly', 
     })
 
     
+    test('Verify that add to cart buttons actually add items to cart', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+
+        await homePage.checkAddToCartBtns()
+
+    })
+
+    test("Verify that the orders button is redirecting to orders page", async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+
+        await homePage.checkOrdersAndCartBtn('Orders')
+
+    })
+
+    test("Verify that the cart button is redirecting to cart page", async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+
+        await homePage.checkOrdersAndCartBtn('Cart')
+        
+    })
+
+    test('Verify that the sign out button sings the user out', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+
+        await homePage.signOut()
+        
+    })
 })
