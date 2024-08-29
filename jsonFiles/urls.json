@@ -3,6 +3,9 @@
     "homePageUrl":"https://rahulshettyacademy.com/client/dashboard/dash",
     "registerPageUrl":"https://rahulshettyacademy.com/client/auth/register",
     "resetPassPageUrl":"https://rahulshettyacademy.com/client/auth/password-new",
-    "loginPageUrl":"https://rahulshettyacademy.com/client/auth/login"
+    "loginPageUrl":"https://rahulshettyacademy.com/client/auth/login",
+    "zaraCoatPageUrl":"https://rahulshettyacademy.com/client/dashboard/product-details/6581ca399fd99c85e8ee7f45",
+    "adidasShoesPageUrl":"https://rahulshettyacademy.com/client/dashboard/product-details/6581ca979fd99c85e8ee7faf",
+    "iphonePageUrl":"https://rahulshettyacademy.com/client/dashboard/product-details/6581cade9fd99c85e8ee7ff5"
 
 }

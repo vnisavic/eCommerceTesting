@@ -1,6 +1,9 @@
 const {expect, request} = require ('@playwright/test')
+const url = require('../jsonFiles/urls.json')
+const productNames = require('../jsonFiles/itemNames.json')
 const userDataPayload = {userEmail:"nekimail@gmail.com", userPassword:"Karamela1234&"}
 let loginToken
+
 
 class HomePage{
 
@@ -22,6 +25,9 @@ class HomePage{
         this.minPriceInput = page.locator("div[class='col-md-6'] input[placeholder='Min Price']")
         this.signOutBtn = page.locator("//button[normalize-space()='Sign Out']")
         this.maxPriceInput = page.locator("div[class='py-2 border-bottom ml-3'] input[placeholder='Max Price']")
+        this.zaraCoatViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
+        this.adidasShoesViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
+        this.iPhoneViewBtn = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > button:nth-child(3)")
     }
 
     async loginWithApi(){
@@ -156,5 +162,34 @@ class HomePage{
          await expect(this.iPhoneNameTag).toBeVisible()
          
     }
+
+    async checkViewBtns(){
+
+        let zaraCoatItemName = await this.page.locator("//h2[normalize-space()='ZARA COAT 3']")
+        let adidasShoesItemName = await this.page.locator("//h2[normalize-space()='ADIDAS ORIGINAL']")
+        let iphoneItemName = await this.page.locator("//h2[normalize-space()='IPHONE 13 PRO']")
+        let itemViewBtns = [this.zaraCoatViewBtn, this.adidasShoesViewBtn, this.iPhoneViewBtn]
+        let itemNames = [zaraCoatItemName, adidasShoesItemName, iphoneItemName]
+        let itemUrls = [url.zaraCoatPageUrl, url.adidasShoesPageUrl, url.iphonePageUrl]
+        let itemNamesText = [productNames.zaraCoat,productNames.adidasShoes,productNames.iphone]
+        let contShoppingBtn = this.page.locator('.continue')
+
+        for(let i=0;i<=2;i++){
+
+           await itemViewBtns[i].click()
+           let itemText = await itemNames[i].textContent()
+           if(await this.page.url() == itemUrls[i] && itemText == itemNamesText[i]){
+            console.log('url and item name are matching')
+           }
+           await expect(itemText).toBe(itemNamesText[i])
+           await expect(this.page.url()).toBe(itemUrls[i])
+           await contShoppingBtn.click()
+
+        }
+
+
+    }
+
+
 }
 module.exports = {HomePage}
