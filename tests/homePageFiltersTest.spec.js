@@ -75,11 +75,20 @@ test.describe('Testing home page filtering functionalities', ()=>{
         
     })
 
-    test.only('Check if filter search bar is displaying searched items', async({page})=>{
+    test('Check if filter search bar is displaying searched items', async({page})=>{
 
         const poManager = new PageObjectManager(page)
         const homePage = await poManager.getHomePage()
         await homePage.checkSearchbar()
+
+    })
+
+    test.only('Check if price range filter is working - ', async({page})=>{
+
+        const poManager = new PageObjectManager(page)
+        const homePage = await poManager.getHomePage()
+
+        await homePage.checkPriceRangeFilter()
 
     })
 

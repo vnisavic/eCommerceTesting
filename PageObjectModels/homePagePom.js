@@ -19,7 +19,9 @@ class HomePage{
         this.menFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(5) > div:nth-child(3) > input:nth-child(1)")
         this.womenFilterCheckbox = page.locator("body > app-root:nth-child(1) > app-dashboard:nth-child(2) > section:nth-child(4) > form:nth-child(3) > div:nth-child(5) > div:nth-child(4) > input:nth-child(1)")
         this.filterSearchInput = page.locator("div[class='py-2 border-bottom ml-3'] input[placeholder='search']")
+        this.minPriceInput = page.locator("div[class='col-md-6'] input[placeholder='Min Price']")
         this.signOutBtn = page.locator("//button[normalize-space()='Sign Out']")
+        this.maxPriceInput = page.locator("div[class='py-2 border-bottom ml-3'] input[placeholder='Max Price']")
     }
 
     async loginWithApi(){
@@ -129,5 +131,30 @@ class HomePage{
         }
     }
    
+    async checkPriceRangeFilter(){
+
+         await this.minPriceInput.fill("12")
+         await this.maxPriceInput.fill("31600")
+         await this.maxPriceInput.press('Enter')
+         await expect(this.zaraCoatNameTag).toBeVisible()
+         await expect(this.adidasShoes).toBeVisible()
+
+         await this.minPriceInput.fill("")
+         await this.maxPriceInput.fill("")
+         await this.minPriceInput.fill("231500")
+         await this.maxPriceInput.fill("231500")
+         await this.maxPriceInput.press('Enter')
+         await expect(this.iPhoneNameTag).toBeVisible()
+
+         await this.minPriceInput.fill("")
+         await this.maxPriceInput.fill("")
+         await this.minPriceInput.fill("12")
+         await this.maxPriceInput.fill("231500")
+         await this.maxPriceInput.press('Enter')
+         await expect(this.zaraCoatNameTag).toBeVisible()
+         await expect(this.adidasShoes).toBeVisible()
+         await expect(this.iPhoneNameTag).toBeVisible()
+         
+    }
 }
 module.exports = {HomePage}
