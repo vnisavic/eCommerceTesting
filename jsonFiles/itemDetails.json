@@ -1,0 +1,29 @@
+[
+
+    {
+        "id": "6581ca399fd99c85e8ee7f45",
+        "productName": "ZARA COAT 3",
+        "productCategory": "fashion",
+        "productPrice": 31500,
+        "productDescription": "Zara coat for Women and girls",
+        "productImage": "https://rahulshettyacademy.com/api/ecom/uploads/productImage_1650649434146.jpeg"
+    },
+
+    {
+        "id": "6581ca979fd99c85e8ee7faf",
+        "productName": "ADIDAS ORIGINAL",
+        "productCategory": "household",
+        "productPrice": 31500,
+        "productDescription": "Adidas shoes for Men",
+        "productImage": "https://rahulshettyacademy.com/api/ecom/uploads/productImage_1650649488046.jpg"
+    },
+
+    {
+        "id": "6581cade9fd99c85e8ee7ff5",
+        "productName": "IPHONE 13 PRO",
+        "productCategory": "electronics",
+        "productPrice": 231500,
+        "productDescription": "Latest Apple Iphone13 pro with 200mp front camera",
+        "productImage": "https://rahulshettyacademy.com/api/ecom/uploads/productImage_1650649561326.jpg"
+    }
+]
