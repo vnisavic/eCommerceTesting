@@ -1,6 +1,7 @@
 const {expect, request} = require ('@playwright/test')
 const url = require('../jsonFiles/urls.json')
 const productNames = require('../jsonFiles/itemNames.json')
+const apiProductNames = require('../jsonFiles/itemNamesForApiTest.json')
 const userDataPayload = {userEmail:"nekimail@gmail.com", userPassword:"Karamela1234&"}
 let loginToken
 
@@ -233,6 +234,29 @@ class HomePage{
 
         }
         
+    }
+
+    async checkItemsWithApi(){
+
+        const apiContext = await request.newContext()
+        const getAllItemsResponse = await apiContext.post('https://rahulshettyacademy.com/api/ecom/product/get-all-products',
+
+            {headers:{
+
+                'Authorization': loginToken,
+                'Content-type' : 'application/json'
+
+            }}
+        )
+
+        const responseJson = await getAllItemsResponse.json()
+
+        for(let i=0; i<3;i++){
+
+            await expect(responseJson.data[i].productName).toBe(apiProductNames[i].itemName)
+
+        }
+        //same thing can be done for each key-value pair in an API response in order to verify any property of shop items
     }
 
 
