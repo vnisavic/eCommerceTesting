@@ -19,10 +19,12 @@ class CartPage{
             await deleteBtn.click()
 
         }
+        
         await this.page.waitForTimeout(1000)
         let noItemsInCart = await this.noItemsText.textContent()
         console.log(noItemsInCart)
         await expect(noItemsInCart).toContain("No Products")
+
     }
 
     // async getLoginToken(){

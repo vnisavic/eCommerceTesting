@@ -1,6 +1,5 @@
 const {test, expect} = require ('@playwright/test')
 const {PageObjectManager} = require ('../PageObjectModels/pageObjectManager')
-const { CartPage } = require('../PageObjectModels/cartPagePom')
 
 test.describe('Verifying that all cart page functionalities are working', ()=>{
 
@@ -21,6 +20,6 @@ test.describe('Verifying that all cart page functionalities are working', ()=>{
         await homePage.checkAddToCartBtns()
         await homePage.myCartBtn.click()
         await cartPage.deleteItemsFromCart()
-        
+
     })
 })
