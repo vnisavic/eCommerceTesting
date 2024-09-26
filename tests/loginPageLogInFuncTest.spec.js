@@ -15,7 +15,7 @@ test.describe('Testing log in functionality', ()=>{
 
     })
 
-    test.only('Login with valid email and password', async({page})=>{
+    test('Login with valid email and password', async({page})=>{
 
         const pageObjectManager = new PageObjectManager(page)
         const loginPage = await pageObjectManager.getLoginPage()
