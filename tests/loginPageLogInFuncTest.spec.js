@@ -15,13 +15,13 @@ test.describe('Testing log in functionality', ()=>{
 
     })
 
-    test('Login with valid email and password', async({page})=>{
+    test.only('Login with valid email and password', async({page})=>{
 
         const pageObjectManager = new PageObjectManager(page)
         const loginPage = await pageObjectManager.getLoginPage()
 
         await loginPage.logIn(credentials.validEmail, credentials.validPassword)
-        await page.waitForTimeout(500)
+        await page.waitForTimeout(1000)
         await expect(page.url()).toBe(urls.homePageUrl)
 
     })

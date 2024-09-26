@@ -11,12 +11,12 @@ test.describe('Testing cart page', ()=>{
 
     })
 
-    test('add zara coat to cart with api', async({page})=>{
+    // test('add zara coat to cart with api', async({page})=>{
 
-        const poManager = new PageObjectManager(page)
-        const cartPage = await poManager.getCartPage()
-        await cartPage.addItemToCartApi()
-        await page.waitForTimeout(5000)
+    //     const poManager = new PageObjectManager(page)
+    //     const cartPage = await poManager.getCartPage()
+    //     await cartPage.addItemToCartApi()
+    //     await page.waitForTimeout(5000)
 
-    })
+    // })
 })

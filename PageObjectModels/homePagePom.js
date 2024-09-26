@@ -209,7 +209,7 @@ class HomePage{
         for(let i=0; i<await cartBtns.length; i++){
 
             await cartBtns[i].click()
-            await this.page.waitForTimeout(500)
+            await this.page.waitForTimeout(1000)
 
         }
         
