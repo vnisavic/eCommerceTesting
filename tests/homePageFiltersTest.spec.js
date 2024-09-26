@@ -83,7 +83,7 @@ test.describe('Testing home page filtering functionalities', ()=>{
 
     })
 
-    test.only('Check if price range filter is working - ', async({page})=>{
+    test('Check if price range filter is working - ', async({page})=>{
 
         const poManager = new PageObjectManager(page)
         const homePage = await poManager.getHomePage()
